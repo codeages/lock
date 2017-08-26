@@ -19,6 +19,16 @@ use Symfony\Component\Lock\Store\RetryTillSaveStore;
  */
 class RetryTillSaveStoreTest extends AbstractBlockingStoreTest
 {
+
+    public function testBlockingLocks()
+    {
+        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+            self::markTestSkipped("This test is not supported in php 5.3");
+        } else {
+            parent::testBlockingLocks();
+        }
+    }
+
     public function getStore()
     {
         $redis = new \Predis\Client('tcp://'.getenv('REDIS_HOST').':6379');

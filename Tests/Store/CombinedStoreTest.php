@@ -22,10 +22,8 @@ use Symfony\Component\Lock\StoreInterface;
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class CombinedStoreTest extends AbstractStoreTest
+class CombinedStoreTest extends AbstractExpiringStoreTest
 {
-    use ExpiringStoreTestTrait;
-
     /**
      * {@inheritdoc}
      */
@@ -60,9 +58,9 @@ class CombinedStoreTest extends AbstractStoreTest
 
     public function setup()
     {
-        $this->strategy = $this->getMockBuilder(StrategyInterface::class)->getMock();
-        $this->store1 = $this->getMockBuilder(StoreInterface::class)->getMock();
-        $this->store2 = $this->getMockBuilder(StoreInterface::class)->getMock();
+        $this->strategy = $this->getMockBuilder('Symfony\Component\Lock\Strategy\StrategyInterface')->getMock();
+        $this->store1 = $this->getMockBuilder('Symfony\Component\Lock\StoreInterface')->getMock();
+        $this->store2 = $this->getMockBuilder('Symfony\Component\Lock\StoreInterface')->getMock();
 
         $this->store = new CombinedStore(array($this->store1, $this->store2), $this->strategy);
     }
@@ -266,8 +264,8 @@ class CombinedStoreTest extends AbstractStoreTest
 
     public function testPutOffExpirationIgnoreNonExpiringStorage()
     {
-        $store1 = $this->getMockBuilder(StoreInterface::class)->getMock();
-        $store2 = $this->getMockBuilder(StoreInterface::class)->getMock();
+        $store1 = $this->getMockBuilder('Symfony\Component\Lock\StoreInterface')->getMock();
+        $store2 = $this->getMockBuilder('Symfony\Component\Lock\StoreInterface')->getMock();
 
         $store = new CombinedStore(array($store1, $store2), $this->strategy);
 

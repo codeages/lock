@@ -18,10 +18,8 @@ use Symfony\Component\Lock\Store\MemcachedStore;
  *
  * @requires extension memcached
  */
-class MemcachedStoreTest extends AbstractStoreTest
+class MemcachedStoreTest extends AbstractExpiringStoreTest
 {
-    use ExpiringStoreTestTrait;
-
     public static function setupBeforeClass()
     {
         $memcached = new \Memcached();

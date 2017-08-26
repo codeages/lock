@@ -18,6 +18,7 @@ use Symfony\Component\Lock\Exception\InvalidArgumentException;
 use Symfony\Component\Lock\Exception\LockAcquiringException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
 use Symfony\Component\Lock\Exception\LockReleasingException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Lock is the default implementation of the LockInterface.
@@ -26,11 +27,16 @@ use Symfony\Component\Lock\Exception\LockReleasingException;
  */
 final class Lock implements LockInterface, LoggerAwareInterface
 {
-    use LoggerAwareTrait;
-
     private $store;
     private $key;
     private $ttl;
+
+    /**
+     * The logger instance.
+     *
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     /**
      * @param Key            $key
@@ -119,5 +125,15 @@ final class Lock implements LockInterface, LoggerAwareInterface
             $this->logger->warning('Failed to release the "{resource}" lock.', array('resource' => $this->key));
             throw new LockReleasingException(sprintf('Failed to release the "%s" lock.', $this->key));
         }
+    }
+
+    /**
+     * Sets a logger.
+     *
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }

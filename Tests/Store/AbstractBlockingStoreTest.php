@@ -18,13 +18,8 @@ use Symfony\Component\Lock\StoreInterface;
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-trait BlockingStoreTestTrait
+abstract class AbstractBlockingStoreTest extends AbstractStoreTest
 {
-    /**
-     * @see AbstractStoreTest::getStore()
-     */
-    abstract protected function getStore();
-
     /**
      * Tests blocking locks thanks to pcntl.
      *

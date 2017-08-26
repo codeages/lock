@@ -18,10 +18,8 @@ use Symfony\Component\Lock\Store\SemaphoreStore;
  *
  * @requires extension sysvsem
  */
-class SemaphoreStoreTest extends AbstractStoreTest
+class SemaphoreStoreTest extends AbstractBlockingStoreTest
 {
-    use BlockingStoreTestTrait;
-
     /**
      * {@inheritdoc}
      */

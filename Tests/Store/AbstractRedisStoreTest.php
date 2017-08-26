@@ -16,10 +16,8 @@ use Symfony\Component\Lock\Store\RedisStore;
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-abstract class AbstractRedisStoreTest extends AbstractStoreTest
+abstract class AbstractRedisStoreTest extends AbstractExpiringStoreTest
 {
-    use ExpiringStoreTestTrait;
-
     /**
      * {@inheritdoc}
      */

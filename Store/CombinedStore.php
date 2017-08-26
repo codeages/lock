@@ -20,6 +20,7 @@ use Symfony\Component\Lock\Exception\NotSupportedException;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\Strategy\StrategyInterface;
 use Symfony\Component\Lock\StoreInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * CombinedStore is a StoreInterface implementation able to manage and synchronize several StoreInterfaces.
@@ -28,12 +29,18 @@ use Symfony\Component\Lock\StoreInterface;
  */
 class CombinedStore implements StoreInterface, LoggerAwareInterface
 {
-    use LoggerAwareTrait;
-
+    
     /** @var StoreInterface[] */
     private $stores;
     /** @var StrategyInterface */
     private $strategy;
+
+    /**
+     * The logger instance.
+     *
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     /**
      * @param StoreInterface[]  $stores   The list of synchronized stores
@@ -45,7 +52,7 @@ class CombinedStore implements StoreInterface, LoggerAwareInterface
     {
         foreach ($stores as $store) {
             if (!$store instanceof StoreInterface) {
-                throw new InvalidArgumentException(sprintf('The store must implement "%s". Got "%s".', StoreInterface::class, get_class($store)));
+                throw new InvalidArgumentException(sprintf('The store must implement "%s". Got "%s".', 'Symfony\Component\Lock\StoreInterface', get_class($store)));
             }
         }
 
@@ -170,5 +177,15 @@ class CombinedStore implements StoreInterface, LoggerAwareInterface
         }
 
         return false;
+    }
+
+    /**
+     * Sets a logger.
+     *
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }

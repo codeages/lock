@@ -14,6 +14,7 @@ namespace Symfony\Component\Lock;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Factory provides method to create locks.
@@ -22,7 +23,12 @@ use Psr\Log\NullLogger;
  */
 class Factory implements LoggerAwareInterface
 {
-    use LoggerAwareTrait;
+    /**
+     * The logger instance.
+     *
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     private $store;
 
@@ -47,5 +53,15 @@ class Factory implements LoggerAwareInterface
         $lock->setLogger($this->logger);
 
         return $lock;
+    }
+
+    /**
+     * Sets a logger.
+     *
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }

@@ -20,7 +20,8 @@ class RedisStoreTest extends AbstractRedisStoreTest
 {
     public static function setupBeforeClass()
     {
-        if (!@((new \Redis())->connect(getenv('REDIS_HOST')))) {
+        $redis = new \Redis();
+        if (!@($redis->connect(getenv('REDIS_HOST')))) {
             $e = error_get_last();
             self::markTestSkipped($e['message']);
         }

@@ -24,13 +24,13 @@ class FactoryTest extends TestCase
 {
     public function testCreateLock()
     {
-        $store = $this->getMockBuilder(StoreInterface::class)->getMock();
-        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
+        $store = $this->getMockBuilder('Symfony\Component\Lock\StoreInterface')->getMock();
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         $factory = new Factory($store);
         $factory->setLogger($logger);
 
         $lock = $factory->createLock('foo');
 
-        $this->assertInstanceOf(LockInterface::class, $lock);
+        $this->assertInstanceOf('Symfony\Component\Lock\LockInterface', $lock);
     }
 }

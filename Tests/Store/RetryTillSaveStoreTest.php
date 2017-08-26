@@ -17,10 +17,8 @@ use Symfony\Component\Lock\Store\RetryTillSaveStore;
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class RetryTillSaveStoreTest extends AbstractStoreTest
+class RetryTillSaveStoreTest extends AbstractBlockingStoreTest
 {
-    use BlockingStoreTestTrait;
-
     public function getStore()
     {
         $redis = new \Predis\Client('tcp://'.getenv('REDIS_HOST').':6379');

@@ -17,7 +17,8 @@ use Symfony\Component\Lock\StoreInterface;
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-trait ExpiringStoreTestTrait
+
+abstract class AbstractExpiringStoreTest extends AbstractStoreTest
 {
     /**
      * Amount a microsecond used to order async actions.
@@ -25,11 +26,6 @@ trait ExpiringStoreTestTrait
      * @return int
      */
     abstract protected function getClockDelay();
-
-    /**
-     * @see AbstractStoreTest::getStore()
-     */
-    abstract protected function getStore();
 
     /**
      * Tests the store automatically delete the key when it expire.

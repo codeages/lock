@@ -17,6 +17,7 @@ use Psr\Log\NullLogger;
 use Symfony\Component\Lock\Exception\LockConflictedException;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\StoreInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * RetryTillSaveStore is a StoreInterface implementation which decorate a non blocking StoreInterface to provide a
@@ -26,11 +27,16 @@ use Symfony\Component\Lock\StoreInterface;
  */
 class RetryTillSaveStore implements StoreInterface, LoggerAwareInterface
 {
-    use LoggerAwareTrait;
-
     private $decorated;
     private $retrySleep;
     private $retryCount;
+
+    /**
+     * The logger instance.
+     *
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     /**
      * @param StoreInterface $decorated  The decorated StoreInterface
@@ -98,5 +104,15 @@ class RetryTillSaveStore implements StoreInterface, LoggerAwareInterface
     public function exists(Key $key)
     {
         return $this->decorated->exists($key);
+    }
+
+    /**
+     * Sets a logger.
+     *
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }

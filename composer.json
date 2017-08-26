@@ -1,5 +1,5 @@
 {
-    "name": "symfony/lock",
+    "name": "codeages/symfony-lock-lite",
     "type": "library",
     "description": "Symfony Lock Component",
     "keywords": ["locking", "redlock", "mutex", "semaphore", "flock", "cas"],
@@ -29,11 +29,5 @@
         "exclude-from-classmap": [
             "/Tests/"
         ]
-    },
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "4.0-dev"
-        }
     }
 }
